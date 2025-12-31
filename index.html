@@ -29,16 +29,30 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>My Factory Class</title>
+  <title>my_factory_class</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <script>
-    window.flutterConfiguration = {
-      renderer: "html",
-    };
+    const serviceWorkerVersion = "655466229";
   </script>
-  <script src="flutter_bootstrap.js" async></script>
+  <script src="flutter.js" defer></script>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine({
+            renderer: "html", // Paksa HTML Renderer di sini
+          }).then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
